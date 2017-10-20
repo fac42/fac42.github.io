@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Alex Chang">
+    <meta name="description" content="A simple game created with HTML5 Canvas.">
+    <title>HTML5 Canvas</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+    body {
+        color: #444;
+        background: #efefef;
+    }
+    </style>
+</head>
+<body>
+   <div class="container">
+       <h1 class="text-center">A Moving Knight!</h1>
+       <h2 class="text-center">Controls:</h2>
+       <p class="text-center">[SPACE] = JUMP</p>
+       <p class="text-center">[LEFT ARROW KEY] = MOVE LEFT</p>
+       <p class="text-center">[RIGHT ARROW KEY] = MOVE RIGHT</p>
+        <canvas id="game-canvas" class="center-block" width="960" height="650"></canvas>
+   </div>
+   <script>
+    var gameCanvas = document.getElementById('game-canvas');
+    var ctx = gameCanvas.getContext('2d');
+    var castle = new Image();
+    castle.src = 'img/castle.jpg';
+    var knightLeft = new Image();
+    knightLeft.src = 'img/knight_left.png';
+    var knightRight = new Image();
+    knightRight.src = 'img/knight_right.png';
+    var direction;
+    knight_x_pos = ((gameCanvas.width/2)-70);
+    knight_y_pos = gameCanvas.height - 199;
+    castle.onload = function () {
+        ctx.drawImage(castle, 0, 0, 960, 650);
+        ctx.drawImage(knightRight, knight_x_pos, knight_y_pos);
+    }
+    var map = {}; // You could also use an array
+    onkeydown = onkeyup = function(e) {
+    e = e || event; // to deal with IE
+    map[e.keyCode] = (e.type == 'keydown');
+        if (map[39] == true) {
+            ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
+            ctx.drawImage(castle, 0, 0, 960, 650);
+            if (knight_x_pos >= (gameCanvas.width - 165)) {
+                knight_x_pos = gameCanvas.width - 165;
+            } else {
+                knight_x_pos = knight_x_pos + 20;
+            }
+            ctx.drawImage(knightRight, knight_x_pos, knight_y_pos);
+            direction = 'right';
+        }
+        
+        if (map[37] == true) {
+            ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
+            ctx.drawImage(castle, 0, 0, 960, 650);
+            if (knight_x_pos <= 0) {
+                knight_x_pos = 0;
+            } else {
+                knight_x_pos = knight_x_pos - 20;
+            }
+            ctx.drawImage(knightLeft, knight_x_pos, knight_y_pos);
+            direction = 'left';
+        }
+        
+        if (map[32] == true) {
+            ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
+            ctx.drawImage(castle, 0, 0, 960, 650);
+            if ((knight_y_pos <= (gameCanvas.height - 199)) && direction == 'right') {
+                knight_y_pos = knight_y_pos - 100;
+                ctx.drawImage(knightRight, knight_x_pos, knight_y_pos);
+                var jumpTimer = setTimeout (function () {
+                ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
+                ctx.drawImage(castle, 0, 0, 960, 650);
+                knight_y_pos = knight_y_pos + 100;
+                ctx.drawImage(knightRight, knight_x_pos, knight_y_pos);
+                }, 200);
+            } else if ((knight_y_pos <= (gameCanvas.height - 199)) && direction == 'left') {
+                knight_y_pos = knight_y_pos - 100;
+                ctx.drawImage(knightLeft, knight_x_pos, knight_y_pos);
+                var jumpTimer = setTimeout (function () {
+                ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
+                ctx.drawImage(castle, 0, 0, 960, 650);
+                knight_y_pos = knight_y_pos + 100;
+                ctx.drawImage(knightLeft, knight_x_pos, knight_y_pos);
+                }, 200);
+            } else if (knight_y_pos <= (gameCanvas.height - 199)) {
+                knight_y_pos = knight_y_pos - 100;
+                ctx.drawImage(knightRight, knight_x_pos, knight_y_pos);
+                var jumpTimer = setTimeout (function () {
+                ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
+                ctx.drawImage(castle, 0, 0, 960, 650);
+                knight_y_pos = knight_y_pos + 100;
+                ctx.drawImage(knightRight, knight_x_pos, knight_y_pos);
+                }, 200);
+            }
+        }
+    }
+    </script>
+</body>
+</html>
