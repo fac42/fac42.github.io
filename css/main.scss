@@ -151,7 +151,7 @@ header {
 .profile-img {
     @include card-shadow();
     transition: $transition;
-    filter: grayscale(85%);
+    filter: grayscale(90%);
     &:hover {
         filter: none;
         cursor: pointer;
@@ -218,6 +218,11 @@ header {
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
+    opacity: 0.4;
+    transition: $transition;
+    &:hover {
+        opacity: 1;
+    }
 }
 .card-content {
     padding: 1.5rem 1rem 6.5rem;
