@@ -239,7 +239,12 @@ header {
 // Contact
 .contact-list {
     list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    white-space: nowrap;
     li {
+        font-size: 0.9rem;
         transition: $transition-fast;
         &:hover {
             color: $flat-blue;
@@ -252,7 +257,7 @@ header {
             }
         }
         span.fa {
-            font-size: 1.5rem;
+            font-size: 1.1rem;
         }
     }
 }
@@ -262,9 +267,10 @@ footer {
     font-family: $main-font;
     color: $light-grey;
     margin: 0 auto;
-    display: flex;
-    flex-flow: row wrap;
+    @include flex-row;
+    flex-wrap: wrap-reverse;
     justify-content: space-between;
+    padding: 0 0.5rem;
     a { 
         font-weight: 600;
     }
@@ -315,6 +321,15 @@ footer {
     .card {
         margin: 0.5rem 0.25rem;
         flex: 0 1 calc(50% - 0.5rem);
+    }
+    // Contact
+    .contact-list {
+        li {
+            font-size: 1rem;
+        }
+        span.fa {
+            font-size: 1.5rem;
+        }
     }
 }
 // Desktop Styles
