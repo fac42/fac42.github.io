@@ -46,6 +46,9 @@ body {
 .col {
     flex-basis: 100%;
 }
+.line {
+    color: $pastel-green;
+}
 // Utility
 .justify-center {
     display: flex;
@@ -197,7 +200,7 @@ header {
         font-size: 1.2rem;
         color: $flat-blue;
     }
-    a:first-child {
+    a:nth-child(1) {
         color: $pastel-blue;
     }
     a:nth-child(2) {
@@ -434,6 +437,9 @@ footer {
     }
     // Main Content
     // About
+    #about {
+        text-align: center;
+    }
     .profile-img {
         width: 250px;
         height: 250px;

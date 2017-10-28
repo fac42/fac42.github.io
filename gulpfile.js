@@ -8,8 +8,8 @@ gulp.task('css', function() {
     return gulp.src('./src/sass/main.scss')
     .pipe(plugin.sourcemaps.init())
     .pipe(plugin.sass().on('error', plugin.sass.logError))
-    .pipe(plugin.cleanCss())
     .pipe(plugin.autoprefixer())
+    .pipe(plugin.cleanCss())
     .pipe(plugin.sourcemaps.write())
     .pipe(gulp.dest('./dist/css'))
     .pipe(browserSync.stream());
