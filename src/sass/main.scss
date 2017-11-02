@@ -1,4 +1,5 @@
 // Partials
+@import "partials/_fonts";
 @import "partials/_variables";
 @import "partials/_mixins";
 // General/Global Styles
@@ -60,6 +61,15 @@ body {
 .text-bold {
     font-weight: 600;
 }
+.light-blue-text {
+    color: $pastel-blue;
+}
+.blue-text {
+    color: $flat-blue;
+}
+.green-text {
+    color: $pastel-green;
+}
 // Header
 header {
     width: 100%;
@@ -75,6 +85,7 @@ header {
         @include flex-col();
         align-items: center;
         h1 {
+            font-weight: 400;
             padding: 0 1rem;
             transition: $transition;
             a {
