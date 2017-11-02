@@ -42,7 +42,7 @@ gulp.task('reload', function() {
 
 // Watch for changes in SASS and JS Files and run tasks
 gulp.task('watch', function() {
-    gulp.watch(['./src/sass/*.scss'],['css']);
+    gulp.watch(['./src/sass/*.scss', './src/sass/**/*.scss'],['css']);
     gulp.watch(['./src/js/*.js'],['js']);
 });
 
