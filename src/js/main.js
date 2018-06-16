@@ -1,41 +1,30 @@
-$(document).ready(function() {
-  // Date JS
-  var date = new Date();
-  document.getElementById("date").innerHTML = date.getFullYear();
-  // Header JS
-  var height = $(window).height();
-  var width = $(window).width();
-  console.log(height);
-  console.log(width);
-  $(window).on("scroll", function() {
+// Rewrite in Pure JS
+window.onload = function() {
+  // Set Date
+  const date = new Date();
+  document.querySelector('#date').innerHTML = date.getFullYear();
+  // Navbar Resize
+  const height = window.innerHeight;
+  const width = window.innerWidth;
+  window.addEventListener('scroll', function() {
+    const header = document.querySelector('header');
+    // console.log('Scrolling now!');
     if (width < 500) {
-      $("header").toggleClass(
-        "shrink",
-        $(document).scrollTop() > height * 0.70
-      );
-    } else {
-      $("header").toggleClass(
-        "shrink",
-        $(document).scrollTop() > height * 0.85
-      );
+      if (document.documentElement.scrollTop > height * 0.70) {
+        header.classList.add('shrink');
+      }
+      else {
+        header.classList.remove('shrink');
+      }
     }
-  });
-  // Scroll JS
-  $("a[href^='#']").on("click", function(e) {
-    e.preventDefault();
-    $("html, body").animate(
-      {
-        scrollTop: $($(this).attr("href")).offset().top
-      },
-      1000
-    );
-  });
-  if ($(window.location.hash).length > 1) {
-    $("html, body").animate(
-      {
-        scrollTop: $(window.location.hash).offset().top
-      },
-      1000
-    );
-  }
-});
+    else {
+      if (document.documentElement.scrollTop > height * 0.85) {
+        header.classList.add('shrink');
+      }
+      else {
+        header.classList.remove('shrink');
+      }
+    }
+  })
+}
+
