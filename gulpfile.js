@@ -5,7 +5,7 @@ var browserSync = require('browser-sync').create();
 
 // Compile from SASS to CSS, Autoprefix and Minify, output to /dist
 gulp.task('css', function() {
-    return gulp.src('./src/sass/main.scss')
+    return gulp.src('./src/scss/main.scss')
     .pipe(plugin.sourcemaps.init())
     .pipe(plugin.sass().on('error', plugin.sass.logError))
     .pipe(plugin.autoprefixer())
@@ -42,7 +42,7 @@ gulp.task('reload', function() {
 
 // Watch for changes in SASS and JS Files and run tasks
 gulp.task('watch', function() {
-    gulp.watch(['./src/sass/*.scss', './src/sass/**/*.scss'],['css']);
+    gulp.watch(['./src/scss/*.scss', './src/scss/**/*.scss'],['css']);
     gulp.watch(['./src/js/*.js'],['js']);
 });
 
