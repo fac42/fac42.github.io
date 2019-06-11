@@ -6,11 +6,9 @@ var browserSync = require('browser-sync').create();
 // Compile from SASS to CSS, Autoprefix and Minify, output to /dist
 gulp.task('css', function() {
     return gulp.src('./src/scss/main.scss')
-    .pipe(plugin.sourcemaps.init())
     .pipe(plugin.sass().on('error', plugin.sass.logError))
     .pipe(plugin.autoprefixer())
     .pipe(plugin.cleanCss())
-    .pipe(plugin.sourcemaps.write())
     .pipe(gulp.dest('./dist/css'))
     .pipe(browserSync.stream());
 });
