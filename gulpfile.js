@@ -17,7 +17,7 @@ const files = {
 	jsPath: "./src/js/*.js"
 };
 
-// Compile SASS to CSS, Autoprefix and Minify, output to /dist
+// Compile SASS to CSS, autoprefix and minify, output to /dist
 function cssTask() {
 	return src(files.cssPath, {})
 	.pipe(sass().on('error', sass.logError))
@@ -26,7 +26,7 @@ function cssTask() {
 	.pipe(browserSync.reload({stream: true}));
 }
 
-// Minify JS
+// Minify javascript
 function jsTask() {
 	return src([files.jsPath], {})
 	.pipe(plugin.babel({
@@ -61,7 +61,7 @@ function watchFilesTask() {
 		},
 		series(parallel(cssTask, jsTask))
 	)
-	watch("./*.html", browserSyncReload)
+	watch('./*.html', browserSyncReload)
 }
 
 exports.default = series(parallel(cssTask, jsTask), parallel(browserSyncInit, watchFilesTask));
