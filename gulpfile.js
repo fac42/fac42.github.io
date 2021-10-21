@@ -1,48 +1,67 @@
 // Pull in dependencies
-var gulp = require('gulp');
-var plugin = require('gulp-load-plugins')();
-var browserSync = require('browser-sync').create();
+const {
+	src,
+	dest,
+	parallel,
+	series,
+	watch
+} = require('gulp');
+const sass = require('gulp-sass')(require('sass'));
+const autoprefixer = require('autoprefixer');
+const cssnano = require('cssnano');
+const plugin = require('gulp-load-plugins')();
+const browserSync = require('browser-sync').create();
 
-// Compile from SASS to CSS, Autoprefix and Minify, output to /dist
-gulp.task('css', function() {
-    return gulp.src('./src/scss/main.scss')
-    .pipe(plugin.sass().on('error', plugin.sass.logError))
-    .pipe(plugin.autoprefixer())
-    .pipe(plugin.cleanCss())
-    .pipe(gulp.dest('./dist/css'))
-    .pipe(browserSync.stream());
-});
+const files = {
+	cssPath: "./src/scss/main.scss",
+	jsPath: "./src/js/*.js"
+};
 
-// Combine and Minify JS and jQuery Files
-gulp.task('js', function() {
-    return gulp.src([ 
-    './node_modules/jquery/dist/jquery.min.js',
-    './src/js/*.js'
-    ])
-    .pipe(plugin.babel({
-        presets: 'es2015'
-    }))
-    .pipe(plugin.concat('main.js'))
-    .pipe(plugin.uglify())
-    .pipe(gulp.dest('./dist/js'))
-    .pipe(browserSync.stream());
-});
+// Compile SASS to CSS, Autoprefix and Minify, output to /dist
+function cssTask() {
+	return src(files.cssPath, {})
+	.pipe(sass().on('error', sass.logError))
+	.pipe(plugin.postcss([autoprefixer(), cssnano()]))
+	.pipe(dest('./dist/css'))
+	.pipe(browserSync.reload({stream: true}));
+}
 
-// Live Reload
-gulp.task('reload', function() {
-    browserSync.init({
-        server: {
-            baseDir: './'
-        }
-    })
-    gulp.watch('*.html').on('change', browserSync.reload);
-});
+// Minify JS
+function jsTask() {
+	return src([files.jsPath], {})
+	.pipe(plugin.babel({
+		presets: ['@babel/env']
+	}))
+	.pipe(plugin.uglify())
+	.pipe(dest('./dist/js'))
+	.pipe(browserSync.reload({stream: true}));
+}
 
-// Watch for changes in SASS and JS Files and run tasks
-gulp.task('watch', function() {
-    gulp.watch(['./src/scss/*.scss', './src/scss/**/*.scss'],['css']);
-    gulp.watch(['./src/js/*.js'],['js']);
-});
+// BrowserSync init
+function browserSyncInit() {
+	browserSync.init({
+		server: {
+			baseDir: './'
+		},
+		port: 3000
+	});
+}
 
-// Start all tasks
-gulp.task('default', ['css', 'js', 'watch', 'reload']);
+// BrowserSync reload
+function browserSyncReload(done) {
+	browserSync.reload();
+	done()
+}
+
+// Watching files
+function watchFilesTask() {
+	watch(
+		[files.cssPath, files.jsPath], {
+			interval: 500
+		},
+		series(parallel(cssTask, jsTask))
+	)
+	watch("./*.html", browserSyncReload)
+}
+
+exports.default = series(parallel(cssTask, jsTask), parallel(browserSyncInit, watchFilesTask));
