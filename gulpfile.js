@@ -20,7 +20,9 @@ const files = {
 // Compile SASS to CSS, autoprefix and minify, output to /dist
 function cssTask() {
 	return src(files.cssPath, {})
-	.pipe(sass().on('error', sass.logError))
+	.pipe(sass({
+		includePaths: ['node_modules']
+	}).on('error', sass.logError))
 	.pipe(plugin.postcss([autoprefixer(), cssnano()]))
 	.pipe(dest('./dist/css'))
 	.pipe(browserSync.reload({stream: true}));

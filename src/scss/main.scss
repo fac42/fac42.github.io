@@ -1,8 +1,11 @@
+@use "sass:math";
+
 // Imports
 @import "font-awesome/fontawesome";
 @import "font-awesome/fa-regular";
 @import "font-awesome/fa-solid";
 @import "font-awesome/fa-brands";
+@import "normalize.css/normalize";
 @import "partials/_variables";
 @import "partials/_mixins";
 
