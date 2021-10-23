@@ -14,12 +14,13 @@ const browserSync = require('browser-sync').create();
 
 const files = {
 	cssPath: "./src/scss/main.scss",
+	scssPartialsPath: "./src/scss/partials/*.scss",
 	jsPath: "./src/js/*.js"
 };
 
 // Compile SASS to CSS, autoprefix and minify, output to /dist
 function cssTask() {
-	return src(files.cssPath, {})
+	return src([files.cssPath, files.scssPartialsPath], {})
 	.pipe(sass({
 		includePaths: ['node_modules']
 	}).on('error', sass.logError))
