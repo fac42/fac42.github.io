@@ -7,7 +7,7 @@ window.onload = function() {
 	const height = window.innerHeight;
 	const width = window.innerWidth;
 	window.addEventListener('scroll', function() {
-		const header = document.querySelector('header');
+		const header = document.querySelector('.site-header');
 		if (width < 500) {
 			if (document.documentElement.scrollTop > height * 0.60) {
 				header.classList.add('shrink');
