@@ -19,7 +19,7 @@ body {
 		font-family: $main-font;
 		color: $dark-grey;
 	}
-	h1, h2, h3, h4, {
+	h1, h2, h3, h4, h5 {
 		line-height: 1.2;
 	}
 	a {
@@ -73,12 +73,12 @@ body {
 }
 // Header
 header {
-	width: 100%;
 	position: fixed;
+	width: 100%;
+	height: 150px;
 	top: 0;
 	left: 0;
-	height: 150px;
-	z-index: 999;
+	z-index: 50;
 	transition: $transition-fast;
 	@include rgba-background(247, 250, 255, 0.95);
 	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
@@ -114,14 +114,14 @@ header {
 		}
 	}
 }
-// Header Shrink Class
+// Header shrink class
 .shrink {
 	height: 60px;
 	h1 {
 		display: block;
 	}
 }
-// Fixed Navigation Fix
+// Fixed navigation fix
 .nav-fix:before {
 	display: block;
 	content: " ";
@@ -284,18 +284,18 @@ header {
 // Footer
 footer {
 	max-width: 100%;
-	font-family: $main-font;
-	color: $light-grey;
 	margin: 0 auto;
 	@include flex-row;
-	flex-wrap: wrap-reverse;
 	justify-content: space-between;
+	flex-wrap: wrap-reverse;
+	color: $light-grey;
+	font-family: $main-font;
 	padding: 0 0.5rem;
 	a { 
 		font-weight: 600;
 	}
 }
-//Tablet Styles
+// Tablet styles
 @media screen and (min-width: 500px) {
 	// Layout
 	.row {
@@ -303,6 +303,7 @@ footer {
 	}
 	// Header
 	header {
+		padding: 0 2rem;
 		nav {
 			ul {
 				li {
@@ -311,7 +312,7 @@ footer {
 			}
 		}
 	}
-	// Splash Text
+	// Splash text
 	.splash-text {
 		font-family: $main-font;
 		p:first-child {
@@ -351,7 +352,7 @@ footer {
 		}
 	}
 }
-// Desktop Styles
+// Desktop styles
 @media screen and (min-width: 800px) {
 	// Layout
 	.container {
@@ -371,7 +372,6 @@ footer {
 	}
 	// Header
 	header {
-		width: 100%;
 		height: 80px;
 		transition: $transition;
 		display: flex;
@@ -444,7 +444,7 @@ footer {
 		}
 	}
 }
-// Styles for High-Res screens
+// Styles for high-res screens
 @media screen and (min-width: 1000px) {
 	.container {
 		max-width: 1140px;
