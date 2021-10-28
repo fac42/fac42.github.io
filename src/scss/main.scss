@@ -38,7 +38,6 @@ body {
 	@include flex-row();
 	flex-wrap: wrap;
 	margin-top: 0.5rem;
-	column-gap: 0;
 }
 .col {
 	flex-basis: 100%;
@@ -78,7 +77,10 @@ body {
 header.site-header {
 	position: fixed;
 	width: 100%;
-	height: 150px;
+	height: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	top: 0;
 	left: 0;
 	z-index: 50;
@@ -86,13 +88,10 @@ header.site-header {
 	@include rgba-background(247, 250, 255, 0.95);
 	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 	h1 {
-		display: none;
-		font-weight: 400;
+		display: block;
 		padding: 0 1rem;
+		font-weight: 400;
 		transition: $transition;
-		a {
-			color: $light-grey;
-		}
 	}
 	nav {
 		font-family: $main-font;
@@ -121,7 +120,7 @@ header.site-header {
 .site-header.shrink {
 	height: 60px;
 	h1 {
-		display: block;
+		display: none;
 	}
 }
 // Splash
@@ -292,21 +291,88 @@ footer {
 		font-weight: 600;
 	}
 }
-// Tablet styles
-@media screen and (min-width: 500px) {
+// Desktop styles
+@media screen and (min-width: 800px) {
 	// Layout
+	.container {
+		max-width: 960px;
+	}
 	.row {
-		margin-top: 1rem;
+		margin-top: 0;
+	}
+	.col {
+		flex: 1;
+	}
+	._25 {
+		flex: 2.5;
+	}
+	._75 {
+		flex: 7.5;
+	}
+	.col + .col {
+		margin-left: 0.8rem;
 	}
 	// Header
 	header.site-header {
+		height: 75px;
+		transition: $transition;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		@include rgba-background(247, 250, 255, 0.0);
+		h1 {
+			display: none;
+		}
+		// Navigation
 		nav {
+			height: 100%;
 			ul {
 				li {
-					margin: 0rem 2rem;
+					@include flex-col;
+					justify-content: center;
+					margin: 0;
+					a {
+						transition: $transition-fast;
+						color: $white;
+						&:hover {
+							color: $white;
+						}
+					}
 				}
 			}
 		}
+	}
+	// Bottom Border Hover Transitions
+	nav > ul > li > a {
+		margin: 0.5rem 1rem;
+		padding: 0 1rem calc((75px - 16px) / 2);
+		border-bottom: 1px solid transparent;
+		transition: $transition-fast;
+		&:hover {
+			border-bottom: 1px solid $white;
+		}
+	}
+	// Header Shrink Class
+	.site-header.shrink {
+		height: 70px;
+		@include rgba-background(247, 250, 255, 0.95);
+		h1 {
+			display: block;
+		}
+		nav > ul > li > a {
+			padding: 0 1rem calc((70px - 20px) / 2);
+			color: $light-grey;
+			&:hover {
+				color: $dark-grey;
+				border-bottom: 1px solid $dark-grey;
+			}
+		}
+	}
+	// Splash
+	.splash {
+		position: relative;
+		height: 100vh;
 	}
 	// Splash text
 	.splash-text {
@@ -345,88 +411,8 @@ footer {
 		span.fa {
 			font-size: 1.5rem;
 		}
-	}
-}
-// Desktop styles
-@media screen and (min-width: 800px) {
-	// Layout
-	.container {
-		max-width: 960px;
-	}
-	.col {
-		flex: 1;
-	}
-	._25 {
-		flex: 2.5;
-	}
-	._75 {
-		flex: 7.5;
-	}
-	.col + .col {
-		margin-left: 0.8rem;
-	}
-	// Header
-	header.site-header {
-		height: 75px;
-		transition: $transition;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		@include rgba-background(247, 250, 255, 0.0);
-		// Navigation
-		nav {
-			height: 100%;
-			ul {
-				li {
-					@include flex-col;
-					justify-content: center;
-					margin: 0;
-					a {
-						transition: $transition-fast;
-						color: $white;
-						&:hover {
-							color: $white;
-						}
-					}
-				}
-			}
-		}
-	}
-	// Bottom Border Hover Transitions
-	nav > ul > li > a {
-		margin: 0.5rem 1rem;
-		padding: 0 1rem 1.9rem;
-		transition: $transition-fast;
-		border-bottom: 1px solid transparent;
-		&:hover {
-			border-bottom: 1px solid $white;
-		}
-	}
-	// Header Shrink Class
-	.site-header.shrink {
-		height: 70px;
-		@include rgba-background(247, 250, 255, 0.95);
-		nav {
-			ul {
-				li {
-					a {
-						color: $light-grey;
-						padding: 0 1rem 1.4rem;
-						&:hover {
-							color: $dark-grey;
-							border-bottom: 1px solid $dark-grey;
-						}
-					}
-				}
-			}
-		}
-	}
-	// Splash
-	.splash {
-		position: relative;
-		height: 100vh;
-	}
-	// Main Content
+	}	
+	// Main content
 	// About
 	.profile-img {
 		width: 250px;
