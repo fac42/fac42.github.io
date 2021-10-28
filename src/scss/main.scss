@@ -85,7 +85,7 @@ header.site-header {
 	left: 0;
 	z-index: 50;
 	transition: $transition-fast;
-	@include rgba-background(247, 250, 255, 0.95);
+	@include rgba-background(247, 250, 255, 0.99);
 	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 	h1 {
 		display: block;
