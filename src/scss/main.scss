@@ -38,9 +38,7 @@ body {
 	@include flex-row();
 	flex-wrap: wrap;
 	margin-top: 0.5rem;
-}
-.row + .row {
-	margin: 0;
+	column-gap: 0;
 }
 .col {
 	flex-basis: 100%;
@@ -72,6 +70,10 @@ body {
 .line {
 	@extend .green-text;
 }
+.scroll-margin-section {
+	@include scroll-margin-top(100px);
+}
+
 // Header
 header.site-header {
 	position: fixed;
@@ -121,14 +123,6 @@ header.site-header {
 	h1 {
 		display: block;
 	}
-}
-// Fixed navigation fix
-.nav-fix:before {
-	display: block;
-	content: " ";
-	margin-top: -87.5px;
-	height: 87.5px;
-	visibility: hidden;
 }
 // Splash
 .splash {
@@ -190,11 +184,15 @@ header.site-header {
 	}
 }
 // Projects
+.projects-section {
+	display: flex;
+	flex-wrap: wrap;
+	column-gap: 0.75rem;
+}
 .card {
-	flex: 1 1 100%;
 	position: relative;
+	flex: auto 100%;
 	border: 1px solid $off-white;
-	margin: 0.25rem 0.1rem;
 	transition: $transition-fast;
 	box-shadow: 1px 5px 15px rgba(0, 0, 0, 0.1);
 	&:hover {
@@ -337,8 +335,7 @@ footer {
 	// Main content
 	// Projects
 	.card {
-		margin: 0.5rem 0.25rem;
-		flex: 0 1 45%;
+		flex: 0 1 48%;
 	}
 	// Contact
 	.contact-list {
