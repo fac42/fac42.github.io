@@ -13,9 +13,12 @@
 @mixin card-shadow {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-@mixin color-hover ($color) {
+@mixin color-hover($color) {
     transition: $transition-fast;
     &:hover {
         color: ($color);
     }
+}
+@mixin scroll-margin-top($margin-top) {
+    scroll-margin-top: ($margin-top);
 }
